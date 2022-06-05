@@ -44,10 +44,10 @@ def show_stats(model, X, T):
     :param X: test data
     :param T: true data
     """
-    pred = model.predict(X)
+    preds = model.predict(X)
     print('Accuracy', model.score(X, T))
-    print('Brier', np.mean((pred - T) ** 2))
-    fpr, tpr, _ = roc_curve(T, pred)
+    print('Brier', np.mean((preds - T) ** 2))
+    fpr, tpr, _ = roc_curve(T, preds)
     plt.plot(fpr, tpr, label=f'ROC curve (area = {auc(fpr, tpr)})')
     plt.plot([0, 1], [0, 1], linestyle='--', label='Random Classifier')
     plt.legend()
