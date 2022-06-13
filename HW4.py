@@ -120,6 +120,24 @@ class Predictor:
         return att + [np.mean(att)], propensity_scores
 
 
+def show_results(att1, att2):
+    print('Showing results:')
+    print('\t\tData1:')
+    print(f'ipw: {att1[0]}\n'
+          f's_learner: {att1[1]}\n'
+          f't_learner: {att1[2]}\n'
+          f'matching: {att1[3]}\n'
+          f'competitive: {att1[4]}')
+    print('-' * 30)
+    print('\t\tData2:')
+    print(f'ipw: {att2[0]}\n'
+          f's_learner: {att2[1]}\n'
+          f't_learner: {att2[2]}\n'
+          f'matching: {att2[3]}\n'
+          f'competitive: {att2[4]}')
+    print('-' * 30)
+
+
 if __name__ == '__main__':
     predictor = Predictor('Casual Inference - HW4')
     print('Loading data...')
@@ -131,6 +149,8 @@ if __name__ == '__main__':
     att = pd.DataFrame(data=[np.arange(5) + 1, att1, att2], index=['Type', 'data1', 'data2']).transpose()
     propensity = pd.DataFrame(data=[propensity1, propensity2], index=['data1', 'data2'])
     att['Type'] = att['Type'].astype('int')
+
+    show_results(att1, att2)
 
     print('Exporting to csv...')
     att.to_csv('ATT_results.csv', index=False)
